@@ -19,7 +19,7 @@
 /** @file swaggy_crows.cpp
  * @brief The main file for a REST API implemented w/ Swagger UI.
  */
-#include <blueprints.hpp>
+#include <crow.h>
 
 int main(int argc, char** argv) {
     crow::SimpleApp app;
@@ -27,7 +27,11 @@ int main(int argc, char** argv) {
     CROW_ROUTE(app, "/")([]() { return "Welcome to a Crow implementation w/ Swagger UI"; });
 
     crow::Blueprint swag("swagger", "docs/swagger/static", "docs/swagger/templates");
-    swagger_blueprint(swag);
+    CROW_BP_ROUTE(swag, "/")
+    ([]() {
+        auto page = crow::mustache::load("swagger.html");
+        return page.render();
+    });
     app.register_blueprint(swag);
 
     app.port(18080).multithreaded().run();
