@@ -1,0 +1,6 @@
+[submodule "externals/asio"]
+	path = externals/asio
+	url = https://github.com/chriskohlhoff/asio.git
+[submodule "externals/crow"]
+	path = externals/crow
+	url = git@github.com:CrowCpp/Crow.git
